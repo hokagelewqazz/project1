@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div id="info"></div>
+  <h1 style="margin-top:40px;">Мои рецепты</h1>
+  <div class="grid" id="grid"></div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let user = getCurrentUser();
+    if(user) {
+      document.getElementById("info").innerHTML = `<div style="background:#fff; padding:30px; border-radius:16px; box-shadow:0 4px 20px rgba(0,0,0,0.04);"><h2>Привет, ${user.email}! 👋</h2></div>`;
+      let my = getAllRecipes().filter(r => r.author === user.email), html = "";
+      if(my.length === 0) document.getElementById("grid").innerHTML = "<p>Вы не добавили ни одного рецепта.</p>";
+      else {
+        my.forEach(r => { html += `<a href="/recipe/?id=${r.id}" class="card"><img src="${r.img}"><div class="card-content"><h3>${r.title}</h3><p>${r.desc}</p></div></a>`; });
+        document.getElementById("grid").innerHTML = html;
+      }
+    } else {
+      document.getElementById("info").innerHTML = `<h1>Вы не авторизованы</h1><a href="/login/" class="btn">Войти</a>`;
+    }
+  });
+</script>
+{% endblock %}

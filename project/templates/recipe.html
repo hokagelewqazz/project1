@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div id="content"></div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let id = new URLSearchParams(window.location.search).get("id");
+    let r = getAllRecipes().find(x => x.id == id);
+    
+    if(r) {
+      let user = getCurrentUser();
+      let isFav = user && user.favs.includes(r.id);
+      
+      document.getElementById("content").innerHTML = `
+        <a href="/" style="color:#ff6b35; font-weight:600; display:inline-block; margin-bottom:20px;">&larr; Назад</a>
+        <div class="recipe-detail">
+          <img src="${r.img}">
+          <div class="recipe-info">
+            <h1>${r.title}</h1>
+            <p>${r.desc}</p>
+            <div style="font-weight:600; color:#ff6b35; margin-bottom:20px;">⏱ Время готовки: ${r.time} мин</div>
+            
+            <div style="display: flex; align-items: center; margin-bottom: 25px;">
+              <button class="btn ${isFav ? 'btn-outline' : ''}" onclick="toggleFav(${r.id})">
+                ${isFav ? 'Убрать ❌' : 'В избранное ❤️'}
+              </button>
+              
+              ${user && r.author === user.email 
+                ? `<button class="btn btn-delete" onclick="deleteRecipe(${r.id})">Удалить 🗑️</button>` 
+                : ''}
+            </div>
+
+            <div class="ingredients">
+              <h3>Ингредиенты:</h3>
+              <ul>${r.ing.split(',').map(i => `<li>${i.trim()}</li>`).join('')}</ul>
+            </div>
+            
+            <div class="steps">
+              <h3>Приготовление:</h3>
+              <p>${r.steps}</p>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      document.getElementById("content").innerHTML = "<h1>Рецепт не найден 😢</h1><a href='/' class='btn'>На главную</a>";
+    }
+  });
+</script>
+{% endblock %}

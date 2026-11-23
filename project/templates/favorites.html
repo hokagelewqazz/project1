@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h1>Избранное</h1>
+  <div class="grid" id="grid"></div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let user = getCurrentUser(), grid = document.getElementById("grid");
+    if(!user) grid.innerHTML = "<p>Войдите, чтобы увидеть избранное.</p>";
+    else if(user.favs.length === 0) grid.innerHTML = "<p>Вы пока ничего не добавили.</p>";
+    else {
+      let html = "";
+      user.favs.forEach(id => {
+        let r = getAllRecipes().find(x => x.id === id);
+        if(r) html += `<a href="/recipe/?id=${r.id}" class="card"><img src="${r.img}"><div class="card-content"><h3>${r.title}</h3><p>${r.desc}</p></div></a>`;
+      });
+      grid.innerHTML = html;
+    }
+  });
+</script>
+{% endblock %}

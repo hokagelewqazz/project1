@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="form-box">
+    <h2>Создание аккаунта</h2>
+    <div id="error-msg" class="error-msg"></div>
+    
+    <label>Email:</label>
+    <input type="email" id="email" placeholder="you@mail.ru">
+    <label>Пароль:</label>
+    <input type="password" id="password" placeholder="******">
+    
+    <button onclick="register()" class="btn" style="width:100%; margin-top: 10px;">Зарегистрироваться</button>
+    
+    <p style="text-align:center; margin-top: 20px; font-size: 14px;">
+      Уже есть аккаунт? <a href="/login/" style="color:#ff6b35; font-weight:bold;">Войти</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

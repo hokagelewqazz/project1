@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodBlog</title>
+  <link rel="stylesheet" href="/static/style.css?v=2">
+  <script src="/static/app.js"></script>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">🍲 FoodBlog</a>
+    <nav>
+      <a href="/">Главная</a>
+      <a href="/favorites/">Избранное</a>
+      <a href="/add/">Добавить</a>
+      <a href="/profile/">Профиль</a>
+      <div id="auth-block" style="display:flex; align-items:center; margin-left:20px;"></div>
+    </nav>
+  </header>
+  {% block content %}{% endblock %}
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="footer-logo">🍲 FoodBlog</a>
+          <p>Простые и вкусные рецепты на каждый день. Готовь с удовольствием и вдохновением!</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/favorites/">Избранное</a></li>
+            <li><a href="/add/">Добавить рецепт</a></li>
+            <li><a href="/profile/">Мой профиль</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <p>Email: support@foodblog.ru</p>
+          <p>Телефон: +7 (999) 123-45-67</p>
+          <div class="socials">
+            <span>📱</span> <span>✉️</span> <span>🌐</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2024 FoodBlog. Все права защищены. Учебный проект.
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", renderHeader);
+  </script>
+</body>
+</html>
